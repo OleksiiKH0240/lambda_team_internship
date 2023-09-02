@@ -1,0 +1,7 @@
+{"name":"alex","sex":"male","age":"21"}
+{"name":"lecia","sex":"female","age":"23"}
+{"name":"fucia","sex":"male","age":"24"}
+{"name":"aalex2","sex":"female","age":"32"}
+{"name":"igor","sex":"male","age":"21"}
+{"name":"anna","sex":"female","age":"50"}
+{"name":"anya","sex":"female","age":"21"}

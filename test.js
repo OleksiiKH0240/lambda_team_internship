@@ -1,20 +1,26 @@
-function points(string) {
-    const resultArr = [];
-    let n = 2 ** (string.length - 1);
-    let strEl;
-    for (let i = 0; i < n; i++){
-        let dotsPlaces = i.toString(2);
-        dotsPlaces = "0".repeat(string.length - 1 - dotsPlaces.length) + dotsPlaces
-        strEl = string[0]
-        for (let j = 0; j < dotsPlaces.length; j++){
-            strEl = strEl + dotsPlaces[j]
-            strEl = strEl + string[j + 1]
-        }
-        strEl = strEl.replaceAll("0", "")
-        strEl = strEl.replaceAll("1", ".")
-        resultArr.push(strEl)
-    }
-    return resultArr;
+import fs from 'node:fs/promises';
+
+async function readUsersFromFile() {
+    let users, userStrs;
+    // console.log("1");
+    // let data = await fs.readFile('users.txt', 'utf-8');
+    // console.log("2" + data);
+    // userStrs = data.split("\n");
+
+    // users = userStrs.filter(value => value != "");
+    // users.map(userStr => { JSON.parse(userStr) });
+    // return users;
+    // return await fs.readFile('users.txt', 'utf-8');
+
+    const file = await fs.open('./users.txt');
+    let data = await file.readFile("utf8");
+    // console.log("2" + data);
+    userStrs = data.split("\n");
+
+    users = userStrs.filter(value => value != "");
+    users.map(userStr => { JSON.parse(userStr) });
+    return users;   
 }
 
-console.log(points("abcd"))
+console.log(await readUsersFromFile());
+// console.log("2")
