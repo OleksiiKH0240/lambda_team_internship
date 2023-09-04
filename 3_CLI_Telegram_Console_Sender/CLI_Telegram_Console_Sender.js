@@ -14,7 +14,7 @@ async function get_id() {
     if (isNaN(telegram_user_id)) {
         await bot.startPolling();
         console.log("bot <@ferusBestia_test_bot> is waiting for message")
-        await bot.on('message', (msg) => {
+        bot.on('message', (msg) => {
             const chatId = msg.chat.id;
             console.log("your telegram user id is " + chatId);
             bot.stopPolling();
