@@ -96,7 +96,8 @@ async function readUsersFromFile() {
         // console.log(user)
         users.push(JSON.parse(user));
     }
-    // users.map(userStr => { JSON.parse(userStr) });
+    // users = userStrs;
+    // users.map(userStr => JSON.parse(userStr) );
     return users;
 }
 
@@ -108,6 +109,7 @@ async function searchInDB(name) {
     // console.log(suitableUsers);
     return suitableUsers;
 }
+
 
 // console.log(await readUsersFromFile());
 

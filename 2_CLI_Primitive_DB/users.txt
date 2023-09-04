@@ -5,3 +5,4 @@
 {"name":"igor","sex":"male","age":"21"}
 {"name":"anna","sex":"female","age":"50"}
 {"name":"anya","sex":"female","age":"21"}
+{"name":"jenifer","sex":"female","age":"40"}
