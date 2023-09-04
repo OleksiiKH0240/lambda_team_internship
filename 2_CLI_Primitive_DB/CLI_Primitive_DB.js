@@ -92,12 +92,8 @@ async function readUsersFromFile() {
     userStrs = data.split("\n");
 
     userStrs = userStrs.filter(value => value != "");
-    for (const user of userStrs) {
-        // console.log(user)
-        users.push(JSON.parse(user));
-    }
-    // users = userStrs;
-    // users.map(userStr => JSON.parse(userStr) );
+    users = userStrs;
+    users = users.map(userStr => JSON.parse(userStr) );
     return users;
 }
 
