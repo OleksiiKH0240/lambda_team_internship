@@ -1,0 +1,3 @@
+[submodule "TelegramBot_Weather_Forecast"]
+	path = TelegramBot_Weather_Forecast
+	url = https://github.com/OleksiiKH0240/TelegramBot_Weather_Forecast
