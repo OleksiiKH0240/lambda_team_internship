@@ -1,26 +1,28 @@
-import fs from 'node:fs/promises';
+const state = { start: 1, "orange": 2, 1: 4 };
+const previousStateMap = { "currency": "start", city: "start", "frequency": "city" }
 
-async function readUsersFromFile() {
-    let users, userStrs;
-    // console.log("1");
-    // let data = await fs.readFile('users.txt', 'utf-8');
-    // console.log("2" + data);
-    // userStrs = data.split("\n");
 
-    // users = userStrs.filter(value => value != "");
-    // users.map(userStr => { JSON.parse(userStr) });
-    // return users;
-    // return await fs.readFile('users.txt', 'utf-8');
+// console.log(1 in state);
+// const s = previousStateMap.city;
+// const s =  "hello" || process.env.botUrl;
+const s = [
+    {
+        "currencyCodeA": 840,
+        "currencyCodeB": 980,
+        "date": 1694034073,
+        "rateBuy": 36.65,
+        "rateCross": 0,
+        "rateSell": 37.4406
+    },
+    {
+        "currencyCodeA": 978,
+        "currencyCodeB": 980,
+        "date": 1694034073,
+        "rateBuy": 39.3,
+        "rateCross": 0,
+        "rateSell": 40.6504
+    }
+];
 
-    const file = await fs.open('./users.txt');
-    let data = await file.readFile("utf8");
-    // console.log("2" + data);
-    userStrs = data.split("\n");
-
-    users = userStrs.filter(value => value != "");
-    users.map(userStr => { JSON.parse(userStr) });
-    return users;   
-}
-
-console.log(await readUsersFromFile());
-// console.log("2")
+console.log(s.filter(
+    (currRate) => currRate["currencyCodeA"] == 840 && currRate["currencyCodeB"] == 980));
