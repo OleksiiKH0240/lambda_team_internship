@@ -1,16 +1,83 @@
-import axios from 'axios';
+import inquirer from "inquirer";
+import axios from "axios";
 import FormData from 'form-data';
 import fs from 'fs'
+import dotenv from 'dotenv'
 
 
+dotenv.config();
+// console.log(process.env);
+const tinyurlApiToken = process.env.tinyurlApiToken;
+const client_id = process.env.client_id;
+const client_secret = process.env.client_secret;
+const refresh_token = process.env.refresh_token;
+
+
+// ---------------------------------------------------------------
+
+
+let answer;
+
+answer = await inquirer.prompt({
+    name: "photoPath",
+    message: "Drag and drop the image to the terminal and press ENTER to upload it:",
+    type: "input"
+});
+
+const filePath = answer.photoPath;
+let fileName = filePath.split("\\").at(-1);
+const fileExt = fileName.split(".").at(-1);
+
+console.log(`file path: ${filePath}`);
+console.log(`file name: ${fileName}`);
+console.log(`file extension: ${fileExt}`);
+
+answer = await inquirer.prompt({
+    name: "confirmation",
+    message: `You're uploading file with name: ${fileName}. Would you like to change the name of the file?`,
+    type: "confirm",
+    default: false
+});
+
+if (answer.confirmation) {
+    answer = await inquirer.prompt({
+        name: "changedName",
+        message: "Write down new name of the file without any extensions like (.png, .jpg, etc.):",
+        type: "input"
+    });
+    fileName = answer.changedName + `.${fileExt}`;
+}
+
+const response = await uploadPhoto(filePath, fileName);
+// console.log(response);
+const fileUrl = createFileUrl(response.id);
+
+answer = await inquirer.prompt({
+    name: "confirmation",
+    message: `Would you like to shorten url of your file?`,
+    type: "confirm",
+    default: true
+});
+
+if (answer.confirmation) {
+    const tinyFileUrl = await createTinyUrl(fileUrl);
+    console.log(tinyFileUrl);
+} else {
+    console.log(fileUrl);
+}
+
+
+
+
+// ----------------------------------------------------------------------------------
 
 async function refreshAccessToken() {
     const refreshAccessTokenUrl = "https://developers.google.com/oauthplayground/refreshAccessToken";
     const requestBody = {
         "token_uri": "https://oauth2.googleapis.com/token",
-        "client_id": "769520860491-eot1m57o74darm5o6bhfa0j8dvo88ksi.apps.googleusercontent.com",
-        "client_secret": "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",
-        "refresh_token": "1//0476fiqG3ZxceCgYIARAAGAQSNwF-L9IrZRGAxtPnLr3DP4mE2kPKbYQySw00WB0MDfOQk0jYXoj5BjDL7Ua2tF6jPdrTpcWrbBQ"
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "refresh_token": refresh_token
     };
 
     const response = await axios({
@@ -21,16 +88,15 @@ async function refreshAccessToken() {
     });
     const access_token = response.data.access_token;
     if (response.data.success) {
-        console.log("token was successfully refreshed.");
+        console.log("access token was successfully refreshed.");
     } else {
-        console.log("token was refreshed.")
+        console.log("access token was not refreshed.")
         return undefined;
     }
 
     return access_token;
 }
 
-const tinyurlApiToken = "NUcOlw1VncVgqE6swb0CV37TKlA7giE7ID6mz3C91MpXN9ysD1R8Bhhw0raj";
 
 async function createTinyUrl(url) {
     let data = new FormData();
@@ -99,9 +165,6 @@ async function uploadPhoto(photoPath = "cat.jpg", photoName = "little_cat.jpg") 
         // console.log("hello1");
         config.data = createRequestData(photoPath);
         response = await axios.request(config);
-        // response = await axios.request({method: "get", url: "https://www.google.com"});
-        // return await uploadPhoto(photoPath, photoName);    
-        // console.log(access_token);
     }
 
     console.log("photo was successfully uploaded.")
@@ -139,19 +202,4 @@ async function readAccessToken() {
         return access_token;
     }
 }
-
-// let access_token = readAccessToken();
-
-
-// console.log(await readAccessToken());
-
-
-// await refreshAccessToken();
-
-const response = await uploadPhoto("cat.jpg", "tired_kitty.jpg");
-console.log(response);
-const fileUrl = createFileUrl(response.id);
-console.log(fileUrl);
-const tinyFileUrl = await createTinyUrl(fileUrl);
-console.log(tinyFileUrl);
 
