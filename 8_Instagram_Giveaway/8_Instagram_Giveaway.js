@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+console.time("instagram_giveaway");
+
 let dirName;
 // dirName = "200k_words_100x100";
 dirName = "2kk_words_400x400";
@@ -17,10 +19,12 @@ function uniqueValues() {
     return wordsSet.size;
 }
 
-console.time("uniqueValues_time");
-const uniqueValuesVal = uniqueValues();
-console.timeEnd("uniqueValues_time");
-console.log(`uniqueValues: ${uniqueValuesVal}`);
+
+
+// console.time("uniqueValues_time");
+// const uniqueValuesVal = uniqueValues();
+// console.timeEnd("uniqueValues_time");
+// console.log(`uniqueValues: ${uniqueValuesVal}`);
 
 
 function intersectSets(set1, set2) {
@@ -40,10 +44,10 @@ function existInAllFiles() {
     return intersectionSet.size;
 }
 
-console.time("existInAllFiles_time");
-const existInAllFilesVal = existInAllFiles();
-console.timeEnd("existInAllFiles_time");
-console.log(`existInAllFiles: ${existInAllFilesVal}`);
+// console.time("existInAllFiles_time");
+// const existInAllFilesVal = existInAllFiles();
+// console.timeEnd("existInAllFiles_time");
+// console.log(`existInAllFiles: ${existInAllFilesVal}`);
 
 
 function existInAtLeastTen() {
@@ -67,8 +71,19 @@ function existInAtLeastTen() {
     return resultWords.length;
 }
 
-console.time("existInAtLeastTen_time");
+// console.time("existInAtLeastTen_time");
+// const existInAtLeastTenVal = existInAtLeastTen();
+// console.timeEnd("existInAtLeastTen_time");
+// console.log(`existInAtLeastTen: ${existInAtLeastTenVal}`);
+
+
+const uniqueValuesVal = uniqueValues();
+console.log(`uniqueValues: ${uniqueValuesVal}`);
+
+const existInAllFilesVal = existInAllFiles();
+console.log(`existInAllFiles: ${existInAllFilesVal}`);
+
 const existInAtLeastTenVal = existInAtLeastTen();
-console.timeEnd("existInAtLeastTen_time");
 console.log(`existInAtLeastTen: ${existInAtLeastTenVal}`);
 
+console.timeEnd("instagram_giveaway");
