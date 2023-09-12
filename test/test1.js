@@ -1,7 +1,2 @@
-import axios from "axios";
-try {
-    await axios.request({method: "get", url: "https://www.google.com"})    
-} catch (error) {
-    await axios.request({method: "get", url: "https://www.google.com"})    
-}
-await axios.request({method: "get", url: "https://www.google.com"})
+let a = [1,2,3];
+console.log(a.slice(1));
