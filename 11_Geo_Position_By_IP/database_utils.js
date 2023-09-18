@@ -45,15 +45,26 @@ function binarySearch(array, x) {
 }
 
 
-export function getInfoByIp(ip) {
+function getInfoByIp(ip) {
+    // console.log(ip);
+
     const ipv4Regexp = /^(\d{1,3}\.){3}\d{1,3}/;
     const ipv6PrefixRegexp = /(.{0,4}:){3}/;
 
-    if (typeof ip == 'string' && ip.includes(".") && ip.match(ipv4Regexp) != null) ip = ipToLong(ip);
-    else if (ip.includes(".") && ip.match(ipv6PrefixRegexp) != null) ip = ipToLong(ip.replace(ipv6PrefixRegexp, ""));
-    else if (typeof ip == 'string') ip = parseInt(ip);
+    if (typeof ip == 'string' && ip.includes(".") && ip.match(ipv4Regexp) != null) {
+        ip = ipToLong(ip);
+    }
+    else if (typeof ip == 'string' && ip.includes(".") && ip.match(ipv6PrefixRegexp) != null) {
+        ip = ipToLong(ip.replace(ipv6PrefixRegexp, ""));
+    }
+    else if (typeof ip == 'string') {
+        ip = parseInt(ip);
+    }
+    else if (typeof ip == 'string' && ip.includes(":") && !ip.includes(".")) {
+        return { error: "cant find ipv4 in given ip.", ip: ip };
+    }
 
-    console.log(ip);
+    // console.log(ip);
 
 
     const rowData = fs.readFileSync("IP2LOCATION-LITE-DB1.CSV", "utf8");
@@ -78,6 +89,9 @@ export function getInfoByIp(ip) {
     // console.log(data.at(-1));
 
 }
+
+export { getInfoByIp, };
+
 
 // const ips = [
 //     "45.232.208.143",

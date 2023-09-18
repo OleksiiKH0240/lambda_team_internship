@@ -1,5 +1,5 @@
 import express from "express";
-import {getInfoByIp} from './database_utils.js'
+import { getInfoByIp, } from './database_utils.js'
 
 const app = express();
 
@@ -7,7 +7,9 @@ const app = express();
 
 app.get("/", function (req, res) {
     // const ip = req.socket.remoteAddress;
-    const ip = req.headers["x-forwarded-for"];
+    let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    ip = ip.split(", ")[0];
+
     // console.log(ip);
 
     const ipInfo = getInfoByIp(ip);
