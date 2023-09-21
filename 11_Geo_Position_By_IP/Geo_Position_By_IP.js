@@ -4,7 +4,6 @@ import { getInfoByIp, } from './database_utils.js'
 const app = express();
 
 
-
 app.get("/", function (req, res) {
     // const ip = req.socket.remoteAddress;
     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
