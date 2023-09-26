@@ -48,7 +48,7 @@ export { createConn, setupDb, addUser, getUserByEmail, closeConn };
 // await createConn();
 
 // await setupDb();
-// // await addUserToDb({ email: "a@gmail.com", password: "123" });
+// await addUser({ user_name: "alex", user_sex: "male", useruser_credential: { email: "a@gmail.com", password: "123" } });
 // console.log(await getUserByEmail("c@gmail.com"));
 
 // await closeConn();
