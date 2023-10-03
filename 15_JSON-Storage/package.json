@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=\"--loader ts-node/esm\" ts-node .\\JSON-Storage.ts"
+    "dev": "cross-env NODE_OPTIONS=\"--loader ts-node/esm\" ts-node .\\JSON-Storage.ts",
+    "start": "node --loader ts-node/esm .\\JSON-Storage.ts"
+
   },
   "dependencies": {
     "@types/express": "^4.17.17",

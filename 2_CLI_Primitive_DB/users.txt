@@ -6,3 +6,6 @@
 {"name":"anna","sex":"female","age":"50"}
 {"name":"anya","sex":"female","age":"21"}
 {"name":"jenifer","sex":"female","age":"40"}
+{"name":"alex","sex":"male","age":"21"}
+{"name":"oleksii","sex":"male","age":"43"}
+{"name":"anya","sex":"female","age":"23"}

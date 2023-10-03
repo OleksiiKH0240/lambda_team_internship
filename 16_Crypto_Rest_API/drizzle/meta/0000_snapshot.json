@@ -1,0 +1,250 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "760cdb78-d90b-4054-bee8-9060e67c4bf9",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "CoinBase": {
+      "name": "CoinBase",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "crypto_symbol": {
+          "name": "crypto_symbol",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_updated": {
+          "name": "last_updated",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "crypto_symbol_idx": {
+          "name": "crypto_symbol_idx",
+          "columns": [
+            "crypto_symbol"
+          ],
+          "isUnique": false
+        },
+        "last_updated_idx": {
+          "name": "last_updated_idx",
+          "columns": [
+            "last_updated"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "CoinBase_id": {
+          "name": "CoinBase_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "CoinMarketCap": {
+      "name": "CoinMarketCap",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "crypto_symbol": {
+          "name": "crypto_symbol",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_updated": {
+          "name": "last_updated",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "crypto_symbol_idx": {
+          "name": "crypto_symbol_idx",
+          "columns": [
+            "crypto_symbol"
+          ],
+          "isUnique": false
+        },
+        "last_updated_idx": {
+          "name": "last_updated_idx",
+          "columns": [
+            "last_updated"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "CoinMarketCap_id": {
+          "name": "CoinMarketCap_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "CoinStats": {
+      "name": "CoinStats",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "crypto_symbol": {
+          "name": "crypto_symbol",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_updated": {
+          "name": "last_updated",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "crypto_symbol_idx": {
+          "name": "crypto_symbol_idx",
+          "columns": [
+            "crypto_symbol"
+          ],
+          "isUnique": false
+        },
+        "last_updated_idx": {
+          "name": "last_updated_idx",
+          "columns": [
+            "last_updated"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "CoinStats_id": {
+          "name": "CoinStats_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "Kucoin": {
+      "name": "Kucoin",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "crypto_symbol": {
+          "name": "crypto_symbol",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "double",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_updated": {
+          "name": "last_updated",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "crypto_symbol_idx": {
+          "name": "crypto_symbol_idx",
+          "columns": [
+            "crypto_symbol"
+          ],
+          "isUnique": false
+        },
+        "last_updated_idx": {
+          "name": "last_updated_idx",
+          "columns": [
+            "last_updated"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "Kucoin_id": {
+          "name": "Kucoin_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

@@ -17,4 +17,5 @@ function points(string) {
     return resultArr;
 }
 
-console.log(points("abc"))
+console.log(points("abcdef"))
+

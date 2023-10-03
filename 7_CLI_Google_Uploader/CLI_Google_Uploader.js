@@ -15,6 +15,7 @@ const refresh_token = process.env.refresh_token;
 
 // ---------------------------------------------------------------
 
+// console.log(await refreshAccessToken());
 
 let answer;
 
@@ -75,8 +76,8 @@ async function refreshAccessToken() {
     const refreshAccessTokenUrl = "https://developers.google.com/oauthplayground/refreshAccessToken";
     const requestBody = {
         "token_uri": "https://oauth2.googleapis.com/token",
-        "client_id": client_id,
-        "client_secret": client_secret,
+        // "client_id": client_id,
+        // "client_secret": client_secret,
         "refresh_token": refresh_token
     };
 
@@ -86,6 +87,8 @@ async function refreshAccessToken() {
         headers: {},
         data: requestBody
     });
+
+    // console.log(response);
     const access_token = response.data.access_token;
     if (response.data.success) {
         console.log("access token was successfully refreshed.");

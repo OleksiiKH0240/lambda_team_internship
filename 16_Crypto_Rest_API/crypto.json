@@ -1,0 +1,746 @@
+[
+    {
+        "id": 1,
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "slug": "bitcoin",
+        "coinstats_id": "bitcoin",
+        "coinpaprika_id": "btc-bitcoin"
+    },
+    {
+        "id": 1027,
+        "name": "Ethereum",
+        "symbol": "ETH",
+        "slug": "ethereum",
+        "coinstats_id": "ethereum",
+        "coinpaprika_id": "eth-ethereum"
+    },
+    {
+        "id": 1839,
+        "name": "BNB",
+        "symbol": "BNB",
+        "slug": "bnb",
+        "coinstats_id": "binance-coin",
+        "coinpaprika_id": "bnb-binance-coin"
+    },
+    {
+        "id": 52,
+        "name": "XRP",
+        "symbol": "XRP",
+        "slug": "xrp",
+        "coinstats_id": "ripple",
+        "coinpaprika_id": "xrp-xrp"
+    },
+    {
+        "id": 2010,
+        "name": "Cardano",
+        "symbol": "ADA",
+        "slug": "cardano",
+        "coinstats_id": "cardano",
+        "coinpaprika_id": "ada-cardano"
+    },
+    {
+        "id": 74,
+        "name": "Dogecoin",
+        "symbol": "DOGE",
+        "slug": "dogecoin",
+        "coinstats_id": "dogecoin",
+        "coinpaprika_id": "doge-dogecoin"
+    },
+    {
+        "id": 5426,
+        "name": "Solana",
+        "symbol": "SOL",
+        "slug": "solana",
+        "coinstats_id": "solana",
+        "coinpaprika_id": "sol-solana"
+    },
+    {
+        "id": 11419,
+        "name": "Toncoin",
+        "symbol": "TON",
+        "slug": "toncoin",
+        "coinstats_id": "the-open-network",
+        "coinpaprika_id": "ton-tokamak-network"
+    },
+    {
+        "id": 6636,
+        "name": "Polkadot",
+        "symbol": "DOT",
+        "slug": "polkadot-new",
+        "coinstats_id": "polkadot",
+        "coinpaprika_id": "dot-polkadot"
+    },
+    {
+        "id": 3890,
+        "name": "Polygon",
+        "symbol": "MATIC",
+        "slug": "polygon",
+        "coinstats_id": "matic-network",
+        "coinpaprika_id": "matic-polygon"
+    },
+    {
+        "id": 2,
+        "name": "Litecoin",
+        "symbol": "LTC",
+        "slug": "litecoin",
+        "coinstats_id": "litecoin",
+        "coinpaprika_id": "ltc-litecoin"
+    },
+    {
+        "id": 1831,
+        "name": "Bitcoin Cash",
+        "symbol": "BCH",
+        "slug": "bitcoin-cash",
+        "coinstats_id": "bitcoin-cash",
+        "coinpaprika_id": "bch-bitcoin-cash"
+    },
+    {
+        "id": 5805,
+        "name": "Avalanche",
+        "symbol": "AVAX",
+        "slug": "avalanche",
+        "coinstats_id": "avalanche-2",
+        "coinpaprika_id": "avax-avalanche"
+    },
+    {
+        "id": 512,
+        "name": "Stellar",
+        "symbol": "XLM",
+        "slug": "stellar",
+        "coinstats_id": "stellar",
+        "coinpaprika_id": "xlm-stellar"
+    },
+    {
+        "id": 328,
+        "name": "Monero",
+        "symbol": "XMR",
+        "slug": "monero",
+        "coinstats_id": "monero",
+        "coinpaprika_id": "xmr-monero"
+    },
+    {
+        "id": 3794,
+        "name": "Cosmos",
+        "symbol": "ATOM",
+        "slug": "cosmos",
+        "coinstats_id": "cosmos",
+        "coinpaprika_id": "atom-cosmos"
+    },
+    {
+        "id": 1321,
+        "name": "Ethereum Classic",
+        "symbol": "ETC",
+        "slug": "ethereum-classic",
+        "coinstats_id": "ethereum-classic",
+        "coinpaprika_id": "etc-ethereum-classic"
+    },
+    {
+        "id": 4642,
+        "name": "Hedera",
+        "symbol": "HBAR",
+        "slug": "hedera",
+        "coinstats_id": "hedera-hashgraph",
+        "coinpaprika_id": "hbar-hedera-hashgraph"
+    },
+    {
+        "id": 2280,
+        "name": "Filecoin",
+        "symbol": "FIL",
+        "slug": "filecoin",
+        "coinstats_id": "filecoin",
+        "coinpaprika_id": "fil-filecoin"
+    },
+    {
+        "id": 21794,
+        "name": "Aptos",
+        "symbol": "APT",
+        "slug": "aptos",
+        "coinstats_id": "aptos",
+        "coinpaprika_id": "apt-aptos"
+    },
+    {
+        "id": 3077,
+        "name": "VeChain",
+        "symbol": "VET",
+        "slug": "vechain",
+        "coinstats_id": "vechain",
+        "coinpaprika_id": "vet-vechain"
+    },
+    {
+        "id": 6535,
+        "name": "NEAR Protocol",
+        "symbol": "NEAR",
+        "slug": "near-protocol",
+        "coinstats_id": "near",
+        "coinpaprika_id": "near-near-protocol"
+    },
+    {
+        "id": 4030,
+        "name": "Algorand",
+        "symbol": "ALGO",
+        "slug": "algorand",
+        "coinstats_id": "algorand",
+        "coinpaprika_id": "algo-algorand"
+    },
+    {
+        "id": 2634,
+        "name": "XDC Network",
+        "symbol": "XDC",
+        "slug": "xdc-network",
+        "coinstats_id": "xinfin-network",
+        "coinpaprika_id": "xdc-xdc-network"
+    },
+    {
+        "id": 4847,
+        "name": "Stacks",
+        "symbol": "STX",
+        "slug": "stacks",
+        "coinstats_id": "blockstack",
+        "coinpaprika_id": "stx-stacks"
+    },
+    {
+        "id": 2416,
+        "name": "Theta Network",
+        "symbol": "THETA",
+        "slug": "theta-network",
+        "coinstats_id": "theta-token",
+        "coinpaprika_id": "theta-theta-token"
+    },
+    {
+        "id": 2011,
+        "name": "Tezos",
+        "symbol": "XTZ",
+        "slug": "tezos",
+        "coinstats_id": "tezos",
+        "coinpaprika_id": "xtz-tezos"
+    },
+    {
+        "id": 6892,
+        "name": "MultiversX",
+        "symbol": "EGLD",
+        "slug": "multiversx-egld",
+        "coinstats_id": "elrond-erd-2",
+        "coinpaprika_id": "egld-elrond"
+    },
+    {
+        "id": 1765,
+        "name": "EOS",
+        "symbol": "EOS",
+        "slug": "eos",
+        "coinstats_id": "eos",
+        "coinpaprika_id": "eos-eos"
+    },
+    {
+        "id": 3513,
+        "name": "Fantom",
+        "symbol": "FTM",
+        "slug": "fantom",
+        "coinstats_id": "fantom",
+        "coinpaprika_id": "ftm-fantom"
+    },
+    {
+        "id": 10791,
+        "name": "eCash",
+        "symbol": "XEC",
+        "slug": "ecash",
+        "coinstats_id": "ecash",
+        "coinpaprika_id": "xec-ecash"
+    },
+    {
+        "id": 4558,
+        "name": "Flow",
+        "symbol": "FLOW",
+        "slug": "flow",
+        "coinstats_id": "flow",
+        "coinpaprika_id": "flow-flow"
+    },
+    {
+        "id": 1437,
+        "name": "Zcash",
+        "symbol": "ZEC",
+        "slug": "zcash",
+        "coinstats_id": "zcash",
+        "coinpaprika_id": "zec-zcash"
+    },
+    {
+        "id": 8646,
+        "name": "Mina",
+        "symbol": "MINA",
+        "slug": "mina",
+        "coinstats_id": "mina-protocol",
+        "coinpaprika_id": "mina-mina-protocol"
+    },
+    {
+        "id": 4256,
+        "name": "Klaytn",
+        "symbol": "KLAY",
+        "slug": "klaytn",
+        "coinstats_id": "klay-token",
+        "coinpaprika_id": "klay-klaytn"
+    },
+    {
+        "id": 131,
+        "name": "Dash",
+        "symbol": "DASH",
+        "slug": "dash",
+        "coinstats_id": "dash",
+        "coinpaprika_id": "dash-dash"
+    },
+    {
+        "id": 5632,
+        "name": "Arweave",
+        "symbol": "AR",
+        "slug": "arweave",
+        "coinstats_id": "arweave",
+        "coinpaprika_id": "ar-arweave"
+    },
+    {
+        "id": 7950,
+        "name": "Flare",
+        "symbol": "FLR",
+        "slug": "flare",
+        "coinstats_id": "flare-networks",
+        "coinpaprika_id": "flr-flare-network"
+    },
+    {
+        "id": 2469,
+        "name": "Zilliqa",
+        "symbol": "ZIL",
+        "slug": "zilliqa",
+        "coinstats_id": "zilliqa",
+        "coinpaprika_id": "zil-zilliqa"
+    },
+    {
+        "id": 5567,
+        "name": "Celo",
+        "symbol": "CELO",
+        "slug": "celo",
+        "coinstats_id": "celo",
+        "coinpaprika_id": "celo-celo"
+    },
+    {
+        "id": 1684,
+        "name": "Qtum",
+        "symbol": "QTUM",
+        "slug": "qtum",
+        "coinstats_id": "qtum",
+        "coinpaprika_id": "qtum-qtum"
+    },
+    {
+        "id": 873,
+        "name": "NEM",
+        "symbol": "XEM",
+        "slug": "nem",
+        "coinstats_id": "nem",
+        "coinpaprika_id": "xem-nem"
+    },
+    {
+        "id": 23149,
+        "name": "Sei",
+        "symbol": "SEI",
+        "slug": "sei",
+        "coinstats_id": "sei-network",
+        "coinpaprika_id": "sei-sei"
+    },
+    {
+        "id": 5665,
+        "name": "Helium",
+        "symbol": "HNT",
+        "slug": "helium",
+        "coinstats_id": "helium_hnt",
+        "coinpaprika_id": "hnt-helium"
+    },
+    {
+        "id": 1168,
+        "name": "Decred",
+        "symbol": "DCR",
+        "slug": "decred",
+        "coinstats_id": "decred",
+        "coinpaprika_id": "dcr-decred"
+    },
+    {
+        "id": 3822,
+        "name": "Theta Fuel",
+        "symbol": "TFUEL",
+        "slug": "theta-fuel",
+        "coinstats_id": "theta-fuel",
+        "coinpaprika_id": "tfuel-theta-fuel"
+    },
+    {
+        "id": 2577,
+        "name": "Ravencoin",
+        "symbol": "RVN",
+        "slug": "ravencoin",
+        "coinstats_id": "ravencoin",
+        "coinpaprika_id": "rvn-ravencoin"
+    },
+    {
+        "id": 6836,
+        "name": "Moonbeam",
+        "symbol": "GLMR",
+        "slug": "moonbeam",
+        "coinstats_id": "moonbeam",
+        "coinpaprika_id": "glmr-moonbeam"
+    },
+    {
+        "id": 3773,
+        "name": "Fetch.ai",
+        "symbol": "FET",
+        "slug": "fetch",
+        "coinstats_id": "fetch-ai",
+        "coinpaprika_id": "fetch-ai"
+    },
+    {
+        "id": 5034,
+        "name": "Kusama",
+        "symbol": "KSM",
+        "slug": "kusama",
+        "coinstats_id": "kusama",
+        "coinpaprika_id": "ksm-kusama"
+    },
+    {
+        "id": 12220,
+        "name": "Osmosis",
+        "symbol": "OSMO",
+        "slug": "osmosis",
+        "coinstats_id": "osmosis",
+        "coinpaprika_id": "osmo-osmosis"
+    },
+    {
+        "id": 2566,
+        "name": "Ontology",
+        "symbol": "ONT",
+        "slug": "ontology",
+        "coinstats_id": "ontology",
+        "coinpaprika_id": "ont-ontology"
+    },
+    {
+        "id": 21296,
+        "name": "EthereumPoW",
+        "symbol": "ETHW",
+        "slug": "ethereum-pow",
+        "coinstats_id": "ethereum-pow-iou",
+        "coinpaprika_id": "ethw-ethereum-pow"
+    },
+    {
+        "id": 2777,
+        "name": "IoTeX",
+        "symbol": "IOTX",
+        "slug": "iotex",
+        "coinstats_id": "iotex",
+        "coinpaprika_id": "iotx-iotex"
+    },
+    {
+        "id": 2405,
+        "name": "IOST",
+        "symbol": "IOST",
+        "slug": "iostoken",
+        "coinstats_id": "iostoken",
+        "coinpaprika_id": "iost-iost"
+    },
+    {
+        "id": 5647,
+        "name": "Kadena",
+        "symbol": "KDA",
+        "slug": "kadena",
+        "coinstats_id": "kadena",
+        "coinpaprika_id": "kda-kadena"
+    },
+    {
+        "id": 4948,
+        "name": "Nervos Network",
+        "symbol": "CKB",
+        "slug": "nervos-network",
+        "coinstats_id": "nervos-network",
+        "coinpaprika_id": "ckb-nervos-network"
+    },
+    {
+        "id": 6748,
+        "name": "Centrifuge",
+        "symbol": "CFG",
+        "slug": "centrifuge",
+        "coinstats_id": "centrifuge",
+        "coinpaprika_id": "cfg-centrifuge"
+    },
+    {
+        "id": 1698,
+        "name": "Horizen",
+        "symbol": "ZEN",
+        "slug": "horizen",
+        "coinstats_id": "zencash",
+        "coinpaprika_id": "zen-horizen"
+    },
+    {
+        "id": 109,
+        "name": "DigiByte",
+        "symbol": "DGB",
+        "slug": "digibyte",
+        "coinstats_id": "digibyte",
+        "coinpaprika_id": "dgb-digibyte"
+    },
+    {
+        "id": 7505,
+        "name": "Everscale",
+        "symbol": "EVER",
+        "slug": "everscale",
+        "coinstats_id": "everscale",
+        "coinpaprika_id": "ever-everscale"
+    },
+    {
+        "id": 1214,
+        "name": "Lisk",
+        "symbol": "LSK",
+        "slug": "lisk",
+        "coinstats_id": "lisk",
+        "coinpaprika_id": "lsk-lisk"
+    },
+    {
+        "id": 20396,
+        "name": "Kaspa",
+        "symbol": "KAS",
+        "slug": "kaspa",
+        "coinstats_id": "kaspa",
+        "coinpaprika_id": "kas-kaspa"
+    },
+    {
+        "id": 7548,
+        "name": "WEMIX",
+        "symbol": "WEMIX",
+        "slug": "wemix",
+        "coinstats_id": "wemix-token",
+        "coinpaprika_id": "wemix-wemix-token"
+    },
+    {
+        "id": 11976,
+        "name": "Aleph Zero",
+        "symbol": "AZERO",
+        "slug": "aleph-zero",
+        "coinstats_id": "aleph-zero",
+        "coinpaprika_id": "azero-aleph-zero"
+    },
+    {
+        "id": 3987,
+        "name": "Beldex",
+        "symbol": "BDX",
+        "slug": "beldex",
+        "coinstats_id": "beldex",
+        "coinpaprika_id": "bdx-beldex"
+    },
+    {
+        "id": 1343,
+        "name": "Stratis",
+        "symbol": "STRAX",
+        "slug": "stratis",
+        "coinstats_id": "stratis",
+        "coinpaprika_id": "strax-stratis"
+    },
+    {
+        "id": 6841,
+        "name": "Phala Network",
+        "symbol": "PHA",
+        "slug": "phala-network",
+        "coinstats_id": "pha",
+        "coinpaprika_id": "pha-phala-network"
+    },
+    {
+        "id": 2780,
+        "name": "NKN",
+        "symbol": "NKN",
+        "slug": "nkn",
+        "coinstats_id": "nkn",
+        "coinpaprika_id": "nkn-nkn"
+    },
+    {
+        "id": 541,
+        "name": "Syscoin",
+        "symbol": "SYS",
+        "slug": "syscoin",
+        "coinstats_id": "syscoin",
+        "coinpaprika_id": "sys-syscoin"
+    },
+    {
+        "id": 3992,
+        "name": "COTI",
+        "symbol": "COTI",
+        "slug": "coti",
+        "coinstats_id": "coti",
+        "coinpaprika_id": "coti-coti"
+    },
+    {
+        "id": 20622,
+        "name": "Forta",
+        "symbol": "FORT",
+        "slug": "forta",
+        "coinstats_id": "forta",
+        "coinpaprika_id": "fort-forta"
+    },
+    {
+        "id": 6724,
+        "name": "Klever",
+        "symbol": "KLV",
+        "slug": "klever",
+        "coinstats_id": "klever",
+        "coinpaprika_id": "klv-klever"
+    },
+    {
+        "id": 5919,
+        "name": "Meter Governance",
+        "symbol": "MTRG",
+        "slug": "meter-governance",
+        "coinstats_id": "meter",
+        "coinpaprika_id": "mtrg-meter-governance"
+    },
+    {
+        "id": 1521,
+        "name": "Komodo",
+        "symbol": "KMD",
+        "slug": "komodo",
+        "coinstats_id": "komodo",
+        "coinpaprika_id": "kmd-komodo"
+    },
+    {
+        "id": 6951,
+        "name": "Reef",
+        "symbol": "REEF",
+        "slug": "reef",
+        "coinstats_id": "reef",
+        "coinpaprika_id": "reef-reef"
+    },
+    {
+        "id": 2492,
+        "name": "Elastos",
+        "symbol": "ELA",
+        "slug": "elastos",
+        "coinstats_id": "elastos",
+        "coinpaprika_id": "ela-elastos"
+    },
+    {
+        "id": 7533,
+        "name": "Oraichain",
+        "symbol": "ORAI",
+        "slug": "oraichain-token",
+        "coinstats_id": "oraichain-token",
+        "coinpaprika_id": "orai-oraichain-token"
+    },
+    {
+        "id": 8936,
+        "name": "Trias Token (new)",
+        "symbol": "TRIAS",
+        "slug": "trias-token",
+        "coinstats_id": "trias-token",
+        "coinpaprika_id": "trias-trias-token"
+    },
+    {
+        "id": 14556,
+        "name": "Boba Network",
+        "symbol": "BOBA",
+        "slug": "boba-network",
+        "coinstats_id": "boba-network",
+        "coinpaprika_id": "boba-boba-network"
+    },
+    {
+        "id": 4660,
+        "name": "Telos",
+        "symbol": "TLOS",
+        "slug": "telos",
+        "coinstats_id": "telos",
+        "coinpaprika_id": "tlos-telos"
+    },
+    {
+        "id": 1883,
+        "name": "Adshares",
+        "symbol": "ADS",
+        "slug": "adshares",
+        "coinstats_id": "adshares",
+        "coinpaprika_id": "ads-adshares"
+    },
+    {
+        "id": 2530,
+        "name": "Fusion",
+        "symbol": "FSN",
+        "slug": "fusion",
+        "coinstats_id": "fusion",
+        "coinpaprika_id": "fsn-fusion"
+    },
+    {
+        "id": 5350,
+        "name": "XPR Network",
+        "symbol": "XPR",
+        "slug": "proton",
+        "coinstats_id": "proton",
+        "coinpaprika_id": "xpr-proton"
+    },
+    {
+        "id": 2675,
+        "name": "Dock",
+        "symbol": "DOCK",
+        "slug": "dock",
+        "coinstats_id": "dock",
+        "coinpaprika_id": "dock-dock"
+    },
+    {
+        "id": 2916,
+        "name": "Nimiq",
+        "symbol": "NIM",
+        "slug": "nimiq",
+        "coinstats_id": "nimiq-2",
+        "coinpaprika_id": "nim-nimiq"
+    },
+    {
+        "id": 9104,
+        "name": "AIOZ Network",
+        "symbol": "AIOZ",
+        "slug": "aioz-network",
+        "coinstats_id": "aioz-network",
+        "coinpaprika_id": "aioz-aioz-network"
+    },
+    {
+        "id": 6187,
+        "name": "Serum",
+        "symbol": "SRM",
+        "slug": "serum",
+        "coinstats_id": "serum",
+        "coinpaprika_id": "srm-serum"
+    },
+    {
+        "id": 938,
+        "name": "ARbit",
+        "symbol": "ARB",
+        "slug": "arbit",
+        "coinstats_id": "arbitrum",
+        "coinpaprika_id": "arb-arbitrum"
+    },
+    {
+        "id": 2994,
+        "name": "Bitcoin File",
+        "symbol": "BIFI",
+        "slug": "bitcoin-file",
+        "coinstats_id": "beefy-finance",
+        "coinpaprika_id": "bifi-beefyfinance"
+    },
+    {
+        "id": 18932,
+        "name": "Salmonation",
+        "symbol": "SUI",
+        "slug": "salmonation",
+        "coinstats_id": "sui",
+        "coinpaprika_id": "sui-sui"
+    },
+    {
+        "id": 168,
+        "name": "Uniform Fiscal Object",
+        "symbol": "UFO",
+        "slug": "uniform-fiscal-object",
+        "coinstats_id": "ufo-gaming",
+        "coinpaprika_id": "ufo-ufo-gaming"
+    },
+    {
+        "id": 501,
+        "name": "Cryptonite",
+        "symbol": "XCN",
+        "slug": "cryptonite",
+        "coinstats_id": "chain-2",
+        "coinpaprika_id": "xcn-chain"
+    }
+]

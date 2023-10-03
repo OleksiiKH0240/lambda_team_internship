@@ -5,7 +5,7 @@ const token = "6317463778:AAHFNnvwQP3RRqE5tKdG1ww45vRIyiM4qhg";
 const bot = new TelegramBot(token, { polling: false });
 
 // Initialize variable below with your telegram user id.
-let telegram_user_id = NaN;
+let telegram_user_id = 588266453;
 
 
 // If you don't know what your telegram user id is, run script with argument 'get_id' and send message to the bot 
