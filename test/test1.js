@@ -1,4 +1,4 @@
-let a = [1, 2, 3];
+let a = 2.78;
 let b = [1, 2, 3];
 let o = new Map();
 o.set("a", 4);
@@ -14,7 +14,8 @@ const dateStr = new Date().toLocaleString("en-US", {
 
 const testTime = new Date(Date.parse(dateStr));
 console.log(new Date(Math.round(testTime / 60000) * 60000));
-console.log(5 % 60);
+console.log(typeof a);
+
 
 // console.log(a.find(value => value == 4));
 // console.log("a" && "ab".split(" ")[1])

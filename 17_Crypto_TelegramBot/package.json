@@ -1,6 +1,12 @@
 {
+  "type": "module",
+  "scripts": {
+    "start": "node --loader ts-node/esm .\\Crypto_TelegramBot.ts"
+  },
   "dependencies": {
     "@types/node-telegram-bot-api": "^0.61.8",
-    "node-telegram-bot-api": "^0.63.0"
+    "axios": "^1.5.1",
+    "node-telegram-bot-api": "^0.63.0",
+    "ts-node": "^10.9.1"
   }
 }
