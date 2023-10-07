@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1696638048174,
+      "tag": "0000_wakeful_randall_flagg",
+      "breakpoints": true
+    }
+  ]
+}
