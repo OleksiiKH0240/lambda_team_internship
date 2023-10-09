@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "node --loader ts-node/esm .\\Array_Custom.ts"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
