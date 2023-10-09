@@ -13,9 +13,19 @@ const dateStr = new Date().toLocaleString("en-US", {
 });
 
 const testTime = new Date(Date.parse(dateStr));
-console.log(new Date(Math.round(testTime / 60000) * 60000));
-console.log(typeof a);
+// console.log(new Date(Math.round(testTime / 60000) * 60000));
+// console.log(typeof a);
 
+Object.defineProperty(Array.prototype, "multiply",
+    {
+        value : function (multiplier = 10) { return this.map((val) => val * multiplier) }
+    })
+
+// Array.prototype.multiply = function (multiplier: number = 10) { return this.map((val: number) => val * multiplier) };
+
+const c = [false, true];
+
+console.log([].concat(b, c, 4));
 
 // console.log(a.find(value => value == 4));
 // console.log("a" && "ab".split(" ")[1])
