@@ -1,7 +1,7 @@
 import axios from "axios";
 import TelegramBot from "node-telegram-bot-api";
 
-const cryptoRestApiUrl = "http://localhost";
+const cryptoRestApiUrl = "http://localhost:8080";
 const token = process.env.ferusBestia_test_bot_token;
 if (token == undefined) {
     console.log("can't get telegram bot token");

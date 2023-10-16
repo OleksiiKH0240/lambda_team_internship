@@ -25,7 +25,7 @@ Object.defineProperty(Array.prototype, "multiply",
 
 const c = [false, true];
 
-console.log([].concat(b, c, 4));
+console.log(c.name?.letter);
 
 // console.log(a.find(value => value == 4));
 // console.log("a" && "ab".split(" ")[1])
