@@ -1,0 +1,16 @@
+org: oleksiikh
+app: aws-node-http-hello-api
+service: aws-node-http-hello-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
