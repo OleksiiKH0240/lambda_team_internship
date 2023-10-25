@@ -16,4 +16,4 @@ export const handler = async (event) => {
   return response;
 };
 
-// https://4gq9p7tgv5.execute-api.us-east-1.amazonaws.com?name=oleksii
+// https://mdkjyauv72.execute-api.us-east-1.amazonaws.com?name=oleksii
