@@ -1,7 +1,7 @@
 org: oleksiikh
 app: aws-node-http-hello-api
 service: aws-node-http-hello-api
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 provider:
   name: aws
@@ -14,3 +14,35 @@ functions:
       - httpApi:
           path: /
           method: get
+
+  images_api:
+    handler: index.images_handler
+    events:
+      - httpApi:
+          path: /images
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: s3-images-users-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+    
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: s3-images-app-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        GenerateSecret: false
+
+
+# serverless --org=oleksiikh --app=aws-node-http-api --name=aws-node-http-hello-api --template=aws-node-http-api

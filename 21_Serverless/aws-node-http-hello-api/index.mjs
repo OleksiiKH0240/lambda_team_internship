@@ -16,4 +16,14 @@ export const handler = async (event) => {
   return response;
 };
 
+export const images_handler = async (event) => {
+    // TODO implement
+    let response = {
+        statusCode: 200,
+        body: JSON.stringify('images')
+    };
+  
+    return response;
+  };
+
 // https://mdkjyauv72.execute-api.us-east-1.amazonaws.com?name=oleksii
