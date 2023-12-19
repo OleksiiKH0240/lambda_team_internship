@@ -1,0 +1,86 @@
+org: oleksiikh
+app: aws-node-http-hello-api
+service: aws-node-http-hello-api
+frameworkVersion: "3"
+
+# https://<mydomain>.auth.<region>.amazoncognito.com/login?response_type=code&client_id=<client id>&redirect_uri=<callback url>
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    user_pool_id:
+      Ref: CognitoUserPool
+    client_id:
+      Ref: CognitoUserPoolClient
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:AdminCreateUser
+        - cognito-idp:AdminSetUserPassword
+      Resource: "*"
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+          cors: true
+
+  signupUser:
+    handler: signup.signupUser
+    events:
+      - httpApi:
+          path: /signup
+          method: post
+          cors: true
+
+  loginUser:
+    handler: index.loginUser
+    events:
+      - httpApi:
+          path: /login
+          method: post
+          cors: true
+
+  images_api:
+    handler: index.images_handler
+    events:
+      - httpApi:
+          path: /images
+          method: get
+          cors: true
+          authorizer:
+            name: CognitoAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: !GetAtt CognitoUserPool.Arn
+            claims:
+              - email
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: s3-images-users-pool
+        UsernameAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+        AutoVerifiedAttributes:
+          - email
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: s3-images-app-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        GenerateSecret: false
+# serverless --org=oleksiikh --app=aws-node-http-api --name=aws-node-http-hello-api --template=aws-node-http-api

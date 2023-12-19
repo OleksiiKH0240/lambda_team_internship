@@ -1,13 +1,94 @@
 org: oleksiikh
 app: aws-node-http-hello-api
 service: aws-node-http-hello-api
-frameworkVersion: "3"
 
 provider:
   name: aws
   runtime: nodejs18.x
+  region: "us-east-1"
+  environment:
+    user_pool_id: { Ref: UserPool }
+    client_id: { Ref: UserPoolClient }
+    s3BucketName: {Ref: ImagesBucket}
+    s3BucketFolderName: "images"
+    dynamoDbTableName: {Ref: ImagesDynamoDB}
+    # randomBytesLenght: 16
+    
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:AdminCreateUser
+        - cognito-idp:AdminSetUserPassword
+        - cognito-idp:AdminDeleteUser
+        - s3:PostObject
+        - s3:PutObject
+        - s3:DeleteObject
+        - s3:ListBucket
+        - s3:GetObject
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
+  
+  httpApi:
+    authorizers:
+      serviceAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: 
+          Fn::Join:
+          - ''
+          - - 'https://cognito-idp.'
+            - '${opt:region, self:provider.region}'
+            - '.amazonaws.com/'
+            - Ref: UserPool
+        audience:
+          - Ref: UserPoolClient
 
 functions:
+  loginUser:
+    handler: login.handler
+    events:
+      - httpApi:
+          path: /login
+          method: post
+
+  signupUser:
+    handler: signup.handler
+    events:
+      - httpApi:
+          path: /signup
+          method: post
+
+  getImages:
+    handler: index.images_handler
+    events:
+      - httpApi:
+          path: /images
+          method: get
+          authorizer: serviceAuthorizer
+  
+  uploadImage:
+    handler: index.uploadImage_handler
+    events:
+      - httpApi:
+          path: /upload-image
+          method: post
+          authorizer: serviceAuthorizer
+  
+  deleteImage:
+    handler: index.deleteImage_handler
+    events:
+      - httpApi:
+          path: /delete-image
+          method: post
+          authorizer: serviceAuthorizer
+  
   api:
     handler: index.handler
     events:
@@ -15,34 +96,69 @@ functions:
           path: /
           method: get
 
-  images_api:
-    handler: index.images_handler
-    events:
-      - httpApi:
-          path: /images
-          method: get
-          cors: true
-
 resources:
   Resources:
-    CognitoUserPool:
+    UserPool:
       Type: AWS::Cognito::UserPool
       Properties:
-        UserPoolName: s3-images-users-pool
-        UsernameAttributes:
-          - email
-        AutoVerifiedAttributes:
-          - email
-    
-    CognitoUserPoolClient:
+        UserPoolName: serverless-auth-pool
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+        AutoVerifiedAttributes: ["email"]
+
+    UserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
-        ClientName: s3-images-app-client
-        UserPoolId:
-          Ref: CognitoUserPool
-        ExplicitAuthFlows:
-          - ADMIN_NO_SRP_AUTH
+        ClientName: user-pool-ui
         GenerateSecret: false
+        UserPoolId: { Ref: UserPool }
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - "ADMIN_NO_SRP_AUTH"
 
+    ImagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
 
-# serverless --org=oleksiikh --app=aws-node-http-api --name=aws-node-http-hello-api --template=aws-node-http-api
+    ImagesDynamoDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: imagesTable
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+
+          - AttributeName: filename
+            AttributeType: S
+
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+
+          - AttributeName: filename
+            KeyType: RANGE
+        
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+

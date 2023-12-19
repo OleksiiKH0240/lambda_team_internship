@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "scripts": {
-    "deploy": "cd ./aws-node-http-hello-api && serverless deploy"
-  }
-}
