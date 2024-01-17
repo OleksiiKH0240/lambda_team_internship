@@ -172,7 +172,7 @@ export const uploadImageToBucket = async (s3, bucketName, email, filename, image
         Bucket: bucketName,
         Fields: {
             key, // totally random
-            // "Content-Type": "image/jpg",
+            // "Content-Type": "image/jpeg",
             // "ext": "jpg"
         },
         // Conditions: [
