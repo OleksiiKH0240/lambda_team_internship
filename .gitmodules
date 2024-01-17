@@ -7,3 +7,6 @@
 [submodule "Northwind_Traders"]
 	path = Northwind_Traders
 	url = https://github.com/OleksiiKH0240/Northwind_Traders
+[submodule "Clinics"]
+	path = Clinics
+	url = https://github.com/OleksiiKH0240/Clinics
