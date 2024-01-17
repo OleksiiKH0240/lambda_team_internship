@@ -28,7 +28,7 @@ const c = [false, true];
 const filtered = Object.entries(obj).filter(([key, value]) => ["a", "c"].includes(key));
 const filteredObj = Object.fromEntries(filtered);
 
-console.log({a});
+console.log({ a });
 
 // console.log(a.find(value => value == 4));
 // console.log("a" && "ab".split(" ")[1])
@@ -37,24 +37,28 @@ try {
     throw new SyntaxError();
 }
 catch (e) {
-    if (e instanceof TypeError){
+    if (e instanceof TypeError) {
         console.log("type error");
-    } 
+    }
     if (e instanceof SyntaxError) {
         console.log("error");
     }
     // console.log(e);
 }
 let a1;
-a1 =  {"a1": 1, "b": 2}
+a1 = { "a1": 1, "b": 2 }
 const l = []
 // l.push(...[4,5,6])
 a1["c"] = 5;
 
-const d = Object.fromEntries(l, )
+const d = Object.fromEntries(l,)
 
-console.log(l.lenght)
+const { VSCODE_PID1 } = process.env || { VSCODE_PID1: 80 };
 
+const shopIds = [1, 2, 3, 4, 5];
 
+for (const i of shopIds) {
+    console.log(i);
+}
 
-
+console.log(JSON.parse(""))
