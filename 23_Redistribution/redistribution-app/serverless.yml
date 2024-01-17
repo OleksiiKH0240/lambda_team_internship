@@ -1,0 +1,77 @@
+org: oleksiikh
+service: redistribution-app
+app: redistribution-app
+outputs:
+  LoadBalancerDNSName:
+    Value: !GetAtt LoadBalancer.DNSName
+
+# plugins:
+#   - serverless-plugin-lambda-dead-letter
+
+# package:
+#     exclude:
+#       - node_modules/aws-sdk
+
+custom:
+  envs: ${file(./.env.yml):environment}
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: "us-east-1"
+  availabilityZone1: "${self:provider.region}a"
+  availabilityZone2: "${self:provider.region}b"
+  environment:
+    dbInstanceName: !Ref ShopsPostgresDb
+    dbInstanceAddress: !GetAtt ShopsPostgresDb.Endpoint.Address
+    postgresPort: ${self:custom.envs.postgresPort}
+    postgresUser: ${self:custom.envs.postgresUser}
+    postgresPassword: ${self:custom.envs.postgresPassword}
+    dbName: ${self:custom.envs.dbName}
+    # queueUrl: !Ref ShopsQueue
+    # sqsEndpointPrivateDns: "sqs.us-east-1.amazonaws.com"
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        # - rds:*
+        # - rds:Describe*
+        # - ec2:CreateNetworkInterface
+        # - ec2:DescribeNetworkInterfaces
+        # - ec2:DeleteNetworkInterface
+        # - ec2:AssignPrivateIpAddresses
+        # - ec2:UnassignPrivateIpAddresses
+        #
+        # - ec2:DescribeSecurityGroups
+        # - ec2:DescribeSubnets
+        # - ec2:DescribeVpcs
+
+        # - sts:AssumeRole
+        - lambda:InvokeFunction
+
+      Resource: "*"
+
+functions:
+  shops:
+    handler: "index.handler"
+    reservedConcurrency: 290
+    maximumRetryAttempts: 2
+    maximumEventAge: 7200
+    vpc:
+      securityGroupIds:
+        - !Ref ShopsSecurityGroup
+      subnetIds:
+        - !Ref ShopsSubnet0
+        - !Ref ShopsSubnet1
+    events:
+      - alb:
+          listenerArn: !Ref LoadBalancerListener
+          priority: 1
+          conditions:
+            path: /
+            method: GET
+
+resources:
+  - ${file(./resources/vpc-resources.yml)}
+  - ${file(./resources/shops-postgres-db.yml)}
+  - ${file(./resources/load-balancer.yml)}

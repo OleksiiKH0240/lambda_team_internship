@@ -1,0 +1,96 @@
+org: oleksiikh
+service: redistribution-app
+app: redistribution-app
+
+# plugins:
+#   - serverless-plugin-lambda-dead-letter
+
+# package:
+#     exclude:
+#       - node_modules/aws-sdk
+
+custom:
+  envs: ${file(./.env.yml):environment}
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: "us-east-1"
+  availabilityZone1: "${self:provider.region}a"
+  availabilityZone2: "${self:provider.region}b"
+  environment:
+    postgresPort: ${self:custom.envs.postgresPort}
+    postgresUser: ${self:custom.envs.postgresUser}
+    postgresPassword: ${self:custom.envs.postgresPassword}
+    dbName: ${self:custom.envs.dbName}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        # - rds:*
+        - rds:Describe*
+        - ec2:CreateNetworkInterface
+        - ec2:DescribeNetworkInterfaces
+        - ec2:DeleteNetworkInterface
+        - ec2:AssignPrivateIpAddresses
+        - ec2:UnassignPrivateIpAddresses
+        #
+        - ec2:DescribeSecurityGroups
+        - ec2:DescribeSubnets
+        - ec2:DescribeVpcs
+        # SQS
+        - sqs:*
+        # process sqs messages
+        # - sqs:ReceiveMessage
+        # - sqs:DeleteMessage
+        # - sqs:GetQueueAttributes
+        # send messages to sqs
+        # - sqs:SendMessage
+        # - sqs:ListQueues
+
+      Resource: "*"
+
+functions:
+  redistributer:
+    handler: "handler.handler"
+    reservedConcurrency: 10
+    maximumRetryAttempts: 2
+    maximumEventAge: 7200
+    events:
+      - httpApi:
+          path: /
+          method: get
+    vpc:
+      securityGroupIds:
+        - !GetAtt ShopsVPC.DefaultSecurityGroup
+      subnetIds:
+        - !Ref ShopsSubnet0
+        - !Ref ShopsSubnet1
+
+resources:
+  - ${file(./resources/vpc-resources.yml)}
+  - ${file(./resources/shops-postgres-db.yml)}
+  - Resources:
+      ShopsQueue:
+        Type: AWS::SQS::Queue
+        Properties:
+          QueueName: "ShopsQueue"
+          # RedrivePolicy:
+          #   maxReceiveCount: 5
+
+      # EventSourceMapping:
+      #   Type: AWS::Lambda::EventSourceMapping
+      #   Properties:
+      #     FunctionName: !GetAtt shops.Arn
+      #     BatchSize: 10
+      #     Enabled: true
+      #     EventSourceArn: !GetAtt ShopsQueue.Arn
+      #     MaximumRetryAttempts: 5
+          # ScalingConfig:
+          #   MaximumConcurrency: Number
+          # SourceAccessConfigurations: 
+          #   SourceAccessConfigurations          
+
+    # Outputs:
+    #   address:
+    #     Value: !GetAtt ShopsPostgresDb.address

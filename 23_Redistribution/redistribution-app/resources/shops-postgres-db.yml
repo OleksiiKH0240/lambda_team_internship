@@ -1,0 +1,47 @@
+Resources:
+  ShopsPostgresDb:
+    Type: AWS::RDS::DBInstance
+    DependsOn:
+      - ShopsVPC
+      - InternetGateway
+      - AttachGateway
+      - ShopsSubnetGroup
+      - ShopsSecurityGroup
+    Properties:
+      AllocatedStorage: "5"
+      AutoMinorVersionUpgrade: false
+      AvailabilityZone: "${self:provider.availabilityZone1}"
+      BackupRetentionPeriod: 0
+      DBInstanceClass: "db.t3.micro"
+      DBName: ${self:custom.envs.dbName}
+      DBParameterGroupName: !Ref ShopsDbParameterGroup
+      DBSubnetGroupName: !Ref ShopsSubnetGroup
+      EnableCloudwatchLogsExports:
+        - "postgresql"
+      EnableIAMDatabaseAuthentication: false
+      EnablePerformanceInsights: false
+      Engine: "postgres"
+      EngineVersion: "15.4"
+      MasterUsername: ${self:custom.envs.postgresUser}
+      MasterUserPassword: ${self:custom.envs.postgresPassword}
+      MaxAllocatedStorage: 5
+      # disable
+      MonitoringInterval: 0
+      MultiAZ: false
+      Port: ${self:custom.envs.postgresPort}
+      PubliclyAccessible: true
+      StorageType: "gp2"
+      # StorageType: "standart"
+      UseDefaultProcessorFeatures: true
+      VPCSecurityGroups:
+        - !Ref ShopsSecurityGroup
+        # - !GetAtt ShopsVPC.DefaultSecurityGroup
+  
+  ShopsDbParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: "parameter group for rds postgres db instance"
+      Family: "postgres15"
+      Parameters:
+        max_connections: 70
+

@@ -1,0 +1,131 @@
+Resources:
+  ShopsVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 172.31.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref AWS::StackName
+      # Tags:
+      #  - Key: stack
+      #    Value: production
+
+  ShopsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn:
+      - ShopsVPC
+    Properties:
+      GroupDescription: Load balance allow port 80 traffic
+      VpcId: !Ref ShopsVPC
+      SecurityGroupIngress:
+        - IpProtocol: TCP
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  ShopsSGIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn:
+      - ShopsSecurityGroup
+    Properties:
+      GroupId: !Ref ShopsSecurityGroup
+      IpProtocol: "-1"
+      FromPort: -1
+      ToPort: -1
+      SourceSecurityGroupId: !Ref ShopsSecurityGroup
+
+  ShopsSubnet0:
+    Type: AWS::EC2::Subnet
+    DependsOn:
+      - ShopsVPC
+    Properties:
+      VpcId: !Ref ShopsVPC
+      AvailabilityZone: "${self:provider.availabilityZone1}"
+      CidrBlock: 172.31.0.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Join ["-", [!Ref "AWS::StackName", "subnet-a"]]
+
+  ShopsSubnet1:
+    Type: AWS::EC2::Subnet
+    DependsOn:
+      - ShopsVPC
+    Properties:
+      VpcId: !Ref ShopsVPC
+      AvailabilityZone: "${self:provider.availabilityZone2}"
+      CidrBlock: 172.31.1.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Join ["-", [!Ref "AWS::StackName", "subnet-b"]]
+
+  ShopsSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    DependsOn:
+      - ShopsSubnet0
+      - ShopsSubnet1
+    Properties:
+      DBSubnetGroupDescription: DB Subnet Group for RDS Postgres db isntance
+      SubnetIds:
+        - !Ref ShopsSubnet0
+        - !Ref ShopsSubnet1
+      Tags:
+        - Key: Name
+          Value: DBSubnetGroup
+
+  # help lambda function to reach sqs, which is not in vpc
+  # InterfaceEndpoint:
+  #   Type: "AWS::EC2::VPCEndpoint"
+  #   Properties:
+  #     VpcEndpointType: "Interface"
+  #     ServiceName: !Sub "com.amazonaws.${AWS::Region}.sqs"
+  #     PrivateDnsEnabled: true
+  #     VpcId: !Ref ShopsVPC
+  #     SubnetIds:
+  #       - !Ref ShopsSubnet0
+  #       - !Ref ShopsSubnet1
+  #     SecurityGroupIds:
+  #       - !Ref ShopsSecurityGroup
+
+  # to reach rds postgres in vpc from pc
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: internet-gateway-for-postgres-db
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref ShopsVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  ## PUBLIC ROUTING
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref ShopsVPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnet0RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShopsSubnet0
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ShopsSubnet1
+      RouteTableId: !Ref PublicRouteTable
