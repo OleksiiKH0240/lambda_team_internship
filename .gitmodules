@@ -10,3 +10,6 @@
 [submodule "Clinics"]
 	path = Clinics
 	url = https://github.com/OleksiiKH0240/Clinics
+[submodule "Photo_Drop_Backend"]
+	path = Photo_Drop_Backend
+	url = https://github.com/OleksiiKH0240/Photo_Drop_Backend

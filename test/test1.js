@@ -61,4 +61,50 @@ for (const i of shopIds) {
     console.log(i);
 }
 
-console.log(JSON.parse(""))
+// import jimp from "jimp";
+import jimp from "jimp-native";
+import sharp from "sharp";
+import fs from "fs/promises";
+
+const svg = `<svg
+        xmlns="http://www.w3.org/2000/svg" 
+        xml:lang="en"
+        height="40"
+        width="100">
+        <text
+        font-style="italic"
+        x="15" y="25" font-size="16" fill="#454545">
+        Photo Drop
+        </text>
+        </svg>`;
+    
+await sharp(Buffer.from(svg)).toFile("./test/watermark.png");
+
+// const watermark = await jimp.read("./test/watermark.png");
+const watermark = sharp("./test/watermark_1920_1080.png");
+// const [watermarkW, watermarkH] = [watermark.getWidth(), watermark.getHeight()];
+const photoBuffer = await fs.readFile("./test/testPhoto1.jpeg")
+
+// const photo = await jimp.read("./test/testPhoto1.jpeg");
+// const photo = await jimp.read(photoBuffer);
+const photo = sharp(photoBuffer);
+const { width: photoW, height: photoH } = await photo.metadata();
+// const [photoW, photoH] = [photo.getWidth(), photo.getHeight()];
+
+
+console.time("1");
+const wPhoto = await photo.
+                composite([{
+                    input: await watermark.resize(photoW, photoH).toBuffer(),
+                    gravity: "center"
+                }]).toBuffer();
+// const wPhoto =  photo.composite(watermark.resize(photoW, photoH), 0, 0, {
+//     mode: jimp.BLEND_SOURCE_OVER,
+//     opacityDest: 1,
+//     opacitySource: 1
+// });
+console.timeEnd("1");
+
+// await fs.writeFile("./test/wPhoto.jpeg", (await wPhoto.getBufferAsync(jimp.AUTO)));
+await fs.writeFile("./test/wPhoto.jpeg", wPhoto);
+
