@@ -1,13 +1,25 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-// import jimp from "jimp";
 import sharp from "sharp";
 
 
 const s3Client = new S3Client();
 
-const watermark = sharp("./watermark_1920_1080.png");
-// const watermark = await jimp.read("./watermark_1920_1080.png");
-// const watermark = await jimp.read("./watermark_100_40.png");
+// const svg = `<svg
+//         xmlns="http://www.w3.org/2000/svg" 
+//         xml:lang="en"
+//         height="1080"
+//         width="1920">
+//         <text
+//         font-style="italic"
+//         x="490" y="550" font-size="200" fill="#454545">
+//         Photo Drop
+//         </text>
+//         </svg>`;
+
+const watermark = sharp("./PhotoDrop Logo.png");
+// const watermark = sharp(Buffer.from(svg));
+// const watermark = sharp("./watermark_1920_1080.png");
+// const watermark = sharp.read("./watermark_100_40.png");
 
 export const handler = async (event) => {
   const { s3 } = event.Records[0];
@@ -25,35 +37,34 @@ export const handler = async (event) => {
 
   const response = await s3Client.send(getCommand);
   console.log("original photo was got.");
-  const photoArray = Buffer.from(await response.Body?.transformToByteArray());
-  // console.log(typeof photoArray);
-  // console.log("photoArray", photoArray);
 
-  // const photo = await jimp.read(photoArray);
+  const photoArray = await response.Body?.transformToByteArray();
+
   const photo = sharp(photoArray);
-
-
   console.log("photo buffer was read.");
 
-  // const [photoW, photoH] = [photo.getWidth(), photo.getHeight()];
   const { width: photoW, height: photoH } = await photo.metadata();
   console.log(`photo size: ${photoW}, ${photoH}`);
 
-  // const resizedWatermark = watermark.resize(photoW, photoH);
-  const resizedWatermark = await watermark.resize(photoW, photoH).toBuffer();
-
+  const resizedWatermark = await watermark.resize(
+    Math.floor(photoW/2.442043), 
+    Math.floor(photoH/3.23529), 
+    {
+        fit: "inside"
+    }).toBuffer();
   console.log("watermark was resized.");
-  // const watermarkPhotoBuffer = await photo.composite(resizedWatermark, 0, 0, {
-  //   mode: jimp.BLEND_SOURCE_OVER,
-  //   opacityDest: 1,
-  //   opacitySource: 1
-  // }).getBufferAsync(jimp.AUTO);
+
+  const [leftPadding, topPadding] = [Math.floor(photoW/3.377717), Math.floor(photoH/2.65273)];
+
   const watermarkPhotoBuffer = await photo.
   composite([{
-      input: resizedWatermark,
-      gravity: "center"
-  }]).toBuffer();
+    input: resizedWatermark,
+    gravity: "center",
+    left: leftPadding,
+    top: topPadding
+}]).toBuffer();
   console.log("watermark was added to photo.");
+
   const putCommand = new PutObjectCommand({
     Bucket: bucketName,
     Key: photoS3Key.replace("withoutWatermark/", "withWatermark/"),
@@ -65,7 +76,7 @@ export const handler = async (event) => {
   
   const res = {
     statusCode: 200,
-    body: JSON.stringify('Hello from Lambda!'),
+    body: JSON.stringify('Watermark was added.'),
   };
 
   return res;
