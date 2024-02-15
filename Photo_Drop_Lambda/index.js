@@ -1,25 +1,25 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import sharp from "sharp";
+import pg from "pg";
+import "dotenv/config";
 
 
 const s3Client = new S3Client();
 
-// const svg = `<svg
-//         xmlns="http://www.w3.org/2000/svg" 
-//         xml:lang="en"
-//         height="1080"
-//         width="1920">
-//         <text
-//         font-style="italic"
-//         x="490" y="550" font-size="200" fill="#454545">
-//         Photo Drop
-//         </text>
-//         </svg>`;
+const { PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD } = process.env;
+const pgConfig = {
+  host: PG_HOST,
+  port: Number(PG_PORT) || 5432,
+  database: PG_DATABASE,
+  user: PG_USER,
+  password: PG_PASSWORD,
+  ssl: true
+};
+let pool;
+let client;
+
 
 const watermark = sharp("./PhotoDrop Logo.png");
-// const watermark = sharp(Buffer.from(svg));
-// const watermark = sharp("./watermark_1920_1080.png");
-// const watermark = sharp.read("./watermark_100_40.png");
 
 export const handler = async (event) => {
   const { s3 } = event.Records[0];
@@ -28,6 +28,7 @@ export const handler = async (event) => {
   const photoS3Key = decodeURIComponent(
     s3.object.key.replace(/\+/g, " ")
   );
+  // if (photoS3Key.match(/withoutWatermark\//))
   console.log(`photo s3 key: ${photoS3Key}`);
   
   const getCommand = new GetObjectCommand({
@@ -43,7 +44,7 @@ export const handler = async (event) => {
   const photo = sharp(photoArray);
   console.log("photo buffer was read.");
 
-  const { width: photoW, height: photoH } = await photo.metadata();
+  const { width: photoW, height: photoH, size } = await photo.metadata();
   console.log(`photo size: ${photoW}, ${photoH}`);
 
   const resizedWatermark = await watermark.resize(
@@ -65,15 +66,31 @@ export const handler = async (event) => {
 }]).toBuffer();
   console.log("watermark was added to photo.");
 
+  const watermarkPhotoS3Key = photoS3Key.replace("withoutWatermark/", "withWatermark/");
   const putCommand = new PutObjectCommand({
     Bucket: bucketName,
-    Key: photoS3Key.replace("withoutWatermark/", "withWatermark/"),
+    Key: watermarkPhotoS3Key,
     Body: watermarkPhotoBuffer
   });
   
   await s3Client.send(putCommand);
   console.log("watermarked photo was sent.")
   
+  pool = new pg.Pool(pgConfig)
+  client = await pool.connect();
+  const result = await client.query(`
+  insert into photo_drop.albums_photos(photo_s3_key, watermark_photo_s3_key, has_watermark)
+  values('${photoS3Key}', '${watermarkPhotoS3Key}', true)
+  on conflict(photo_s3_key) do update set has_watermark = true, last_updated = localtimestamp;
+  `);
+  
+  console.log(result);
+  await client.query("commit;");
+  
+  client.release();
+  await pool.end();
+  console.log("set 'hasWatermark' to true.");
+
   const res = {
     statusCode: 200,
     body: JSON.stringify('Watermark was added.'),
