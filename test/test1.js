@@ -69,34 +69,45 @@ import fs from "fs/promises";
 const svg = `<svg
         xmlns="http://www.w3.org/2000/svg" 
         xml:lang="en"
-        height="40"
-        width="100">
+        height="1080"
+        width="1920">
         <text
         font-style="italic"
-        x="15" y="25" font-size="16" fill="#454545">
+        x="490" y="550" font-size="200" fill="#454545">
         Photo Drop
         </text>
         </svg>`;
     
 await sharp(Buffer.from(svg)).toFile("./test/watermark.png");
 
-// const watermark = await jimp.read("./test/watermark.png");
-const watermark = sharp("./test/watermark_1920_1080.png");
-// const [watermarkW, watermarkH] = [watermark.getWidth(), watermark.getHeight()];
-const photoBuffer = await fs.readFile("./test/testPhoto1.jpeg")
+const watermark = sharp("./test/PhotoDrop Logo.png");
+console.log(await watermark.metadata())
+
+const photoBuffer = await fs.readFile("./test/daniel-bernard-2T1lWf9h3zk-unsplash 1.png")
 
 // const photo = await jimp.read("./test/testPhoto1.jpeg");
 // const photo = await jimp.read(photoBuffer);
 const photo = sharp(photoBuffer);
 const { width: photoW, height: photoH } = await photo.metadata();
+console.log(photoW, photoH);
 // const [photoW, photoH] = [photo.getWidth(), photo.getHeight()];
-
-
+const resizedWatermark = watermark.resize(
+    Math.floor(photoW/2.442043), 
+    Math.floor(photoH/3.23529), 
+    {
+        fit: "inside"
+    });
+console.log(await resizedWatermark.metadata())
+await resizedWatermark.toFile("./test/resizedWatermark.png");
+const [leftPadding, topPadding] = [Math.floor(photoW/3.377717), Math.floor(photoH/2.65273)];
+console.log(leftPadding, topPadding);
 console.time("1");
 const wPhoto = await photo.
                 composite([{
-                    input: await watermark.resize(photoW, photoH).toBuffer(),
-                    gravity: "center"
+                    input: await resizedWatermark.toBuffer(),
+                    gravity: "center",
+                    left: leftPadding,
+                    top: topPadding
                 }]).toBuffer();
 // const wPhoto =  photo.composite(watermark.resize(photoW, photoH), 0, 0, {
 //     mode: jimp.BLEND_SOURCE_OVER,
@@ -108,3 +119,5 @@ console.timeEnd("1");
 // await fs.writeFile("./test/wPhoto.jpeg", (await wPhoto.getBufferAsync(jimp.AUTO)));
 await fs.writeFile("./test/wPhoto.jpeg", wPhoto);
 
+const res = await fetch("https://google.com");
+console.log(res.status);
