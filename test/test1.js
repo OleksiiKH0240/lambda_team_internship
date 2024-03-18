@@ -60,64 +60,8 @@ const shopIds = [1, 2, 3, 4, 5];
 for (const i of shopIds) {
     console.log(i);
 }
+import axios from "axios";
 
-// import jimp from "jimp";
-import jimp from "jimp-native";
-import sharp from "sharp";
-import fs from "fs/promises";
-
-const svg = `<svg
-        xmlns="http://www.w3.org/2000/svg" 
-        xml:lang="en"
-        height="1080"
-        width="1920">
-        <text
-        font-style="italic"
-        x="490" y="550" font-size="200" fill="#454545">
-        Photo Drop
-        </text>
-        </svg>`;
-    
-await sharp(Buffer.from(svg)).toFile("./test/watermark.png");
-
-const watermark = sharp("./test/PhotoDrop Logo.png");
-console.log(await watermark.metadata())
-
-const photoBuffer = await fs.readFile("./test/daniel-bernard-2T1lWf9h3zk-unsplash 1.png")
-
-// const photo = await jimp.read("./test/testPhoto1.jpeg");
-// const photo = await jimp.read(photoBuffer);
-const photo = sharp(photoBuffer);
-const { width: photoW, height: photoH } = await photo.metadata();
-console.log(photoW, photoH);
-// const [photoW, photoH] = [photo.getWidth(), photo.getHeight()];
-const resizedWatermark = watermark.resize(
-    Math.floor(photoW/2.442043), 
-    Math.floor(photoH/3.23529), 
-    {
-        fit: "inside"
-    });
-console.log(await resizedWatermark.metadata())
-await resizedWatermark.toFile("./test/resizedWatermark.png");
-const [leftPadding, topPadding] = [Math.floor(photoW/3.377717), Math.floor(photoH/2.65273)];
-console.log(leftPadding, topPadding);
-console.time("1");
-const wPhoto = await photo.
-                composite([{
-                    input: await resizedWatermark.toBuffer(),
-                    gravity: "center",
-                    left: leftPadding,
-                    top: topPadding
-                }]).toBuffer();
-// const wPhoto =  photo.composite(watermark.resize(photoW, photoH), 0, 0, {
-//     mode: jimp.BLEND_SOURCE_OVER,
-//     opacityDest: 1,
-//     opacitySource: 1
-// });
-console.timeEnd("1");
-
-// await fs.writeFile("./test/wPhoto.jpeg", (await wPhoto.getBufferAsync(jimp.AUTO)));
-await fs.writeFile("./test/wPhoto.jpeg", wPhoto);
-
-const res = await fetch("https://google.com");
-console.log(res.status);
+const res = await axios.get("https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fprykhodkood%2Fposts%2Fpfbid0YM1RC8LG7fR43yyAHuVZpUFAcqExXXqvRJgPJvv88or15J7Aw69qTEVRSYH7VFRfl");
+console.log(String(res.data).search("Olga1"));
+// console.log(Buffer.from((await res.body.getReader().read()).value).toString());
